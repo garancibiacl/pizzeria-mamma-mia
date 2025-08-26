@@ -1,9 +1,14 @@
 import React from "react";
+import Header from "./Header";
+
 
 function LoginPage() {
   return (
-    <section className="px-4 py-10">
-      <div className="max-w-sm mx-auto bg-white rounded-xl border border-black/10 p-6">
+
+    <main>
+    <section >
+        <Header />
+      <div className="max-w-sm mx-auto bg-white rounded-xl border border-black/10 p-6 mt-5 mb-5">
         <h1 className="text-2xl font-semibold mb-6 text-center">Iniciar sesión</h1>
 
         <form className="space-y-4">
@@ -36,6 +41,7 @@ function LoginPage() {
         </form>
       </div>
     </section>
+    </main>
   );
 }
 

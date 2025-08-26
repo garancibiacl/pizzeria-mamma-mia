@@ -1,8 +1,13 @@
 import React from "react";
+import Header from "./Header";
+
+
 
 function RegisterPage() {
   return (
-    <section className="px-4 py-10">
+    <section className="">
+              <Header />
+
       <div className="max-w-sm mx-auto bg-white rounded-xl border border-black/10 p-6">
         <h1 className="text-2xl font-semibold mb-6 text-center">Crear cuenta</h1>
 
