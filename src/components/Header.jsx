@@ -1,14 +1,12 @@
 import React from "react";
+import bgImg from "../assets/Header.jpg"; // 👈 importa la imagen local
 
 const Header = () => {
-  const bgUrl =
-    "https://images.unsplash.com/photo-1541745537413-b804c9f6f718?q=80&w=1920&auto=format&fit=crop";
-
   return (
     <header
       className="relative text-white text-center py-16"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)), url(${bgUrl})`,
+        backgroundImage: `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)), url(${bgImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -22,7 +20,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-
