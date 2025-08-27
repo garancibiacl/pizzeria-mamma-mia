@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 
 
 function LoginPage() {
-  const [form, setForm] = useState({ email: "", password: "" });
+  // Campos
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Errores por input
   const [invalid, setInvalid] = useState({ email: false, password: false });
+
+  // Toast (y timerId para auto-ocultarlo sin useEffect)
   const [toast, setToast] = useState({ show: false, type: "success", text: "" });
+  const [timerId, setTimerId] = useState(null);
 
   const baseInput =
     "w-full rounded-lg border px-3 py-2 outline-none transition focus:ring-2";
@@ -14,56 +21,51 @@ function LoginPage() {
 
   const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-  const showToast = (type, text) => setToast({ show: true, type, text });
-
-  useEffect(() => {
-    if (!toast.show) return;
-    const t = setTimeout(() => setToast((x) => ({ ...x, show: false })), 2500);
-    return () => clearTimeout(t);
-  }, [toast.show]);
-
-  const validate = () => {
-    const errs = {
-      email: form.email.trim() === "",
-      password: form.password.trim() === "",
-    };
-
-    if (errs.email || errs.password) {
-      return { ok: false, errs, msg: "Todos los campos son obligatorios." };
-    }
-
-    if (!isValidEmail(form.email)) {
-      return { ok: false, errs: { ...errs, email: true }, msg: "Email inválido." };
-    }
-
-    if (form.password.length < 6) {
-      return {
-        ok: false,
-        errs: { ...errs, password: true },
-        msg: "La contraseña debe tener al menos 6 caracteres.",
-      };
-    }
-
-    return { ok: true, errs, msg: "Inicio de sesión exitoso ✅" };
+  // Muestra toast y programa su cierre sin useEffect
+  const showToast = (type, text, ms = 2500) => {
+    // limpia un timeout anterior si existe
+    if (timerId) clearTimeout(timerId);
+    setToast({ show: true, type, text });
+    const id = setTimeout(() => {
+      setToast((t) => ({ ...t, show: false }));
+      setTimerId(null);
+    }, ms);
+    setTimerId(id);
   };
 
-  const onChange = (e) => {
-    const { id, value } = e.target;
-    setForm((f) => ({ ...f, [id]: value }));
-  };
-
-  const onSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    const { ok, errs, msg } = validate();
-    setInvalid(errs);
-    showToast(ok ? "success" : "error", msg);
-    // si ok === true, aquí podrías llamar a tu API de autenticación
-  };
+
+    // Validaciones mínimas
+    const emptyEmail = email.trim() === "";
+    const emptyPass = password.trim() === "";
+
+    if (emptyEmail || emptyPass) {
+      setInvalid({ email: emptyEmail, password: emptyPass });
+      showToast("error", "Todos los campos son obligatorios.");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setInvalid({ email: true, password: false });
+      showToast("error", "Email inválido.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setInvalid({ email: false, password: true });
+      showToast("error", "La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+
+    // Éxito
+    setInvalid({ email: false, password: false });
+    showToast("success", "Inicio de sesión exitoso ✅");
+    // aquí podrías llamar a tu API
+  }
 
   return (
     <section className="pb-5">
-            <Header />
-
       {/* Toast */}
       {toast.show && (
         <div
@@ -78,10 +80,12 @@ function LoginPage() {
         </div>
       )}
 
+<Header />
+
       <div className="max-w-sm mx-auto bg-white rounded-xl border border-black/10 p-6 mt-5">
         <h1 className="text-2xl font-semibold mb-6 text-center">Iniciar sesión</h1>
 
-        <form className="space-y-4" onSubmit={onSubmit} noValidate>
+        <form className="space-y-4" onSubmit={handleSubmit} noValidate>
           <div className="space-y-2">
             <label htmlFor="email" className="text-sm font-medium">Email</label>
             <input
@@ -89,8 +93,8 @@ function LoginPage() {
               type="email"
               placeholder="tu@correo.com"
               className={`${baseInput} ${invalid.email ? errInput : okInput}`}
-              value={form.email}
-              onChange={onChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -101,8 +105,8 @@ function LoginPage() {
               type="password"
               placeholder="Mínimo 6 caracteres"
               className={`${baseInput} ${invalid.password ? errInput : okInput}`}
-              value={form.password}
-              onChange={onChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
