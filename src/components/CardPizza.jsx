@@ -18,6 +18,11 @@ function CardPizza({ name, price, ingredients, img }) {
         <div className="mt-4 text-2xl font-extrabold">
           ${formatCurrency(price)}
         </div>
+
+           {/* Hito 3: ingredientes como lista */}
+           {/* <ul className="mt-3 list-disc list-inside text-sm text-black/70">
+          {ingredients && ingredients.map((ing) => <li key={ing}>{ing}</li>)}
+        </ul> */}
         <div className="mt-5 grid grid-cols-2 gap-3 mt-auto">
           <button className="rounded-xl border px-3 py-2 hover:bg-black/5">Ver más</button>
           <button className="rounded-xl bg-black text-white px-3 py-2 hover:opacity-90">
