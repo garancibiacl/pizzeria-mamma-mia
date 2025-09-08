@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Footer = () => (
   <footer className="w-full border-t border-black/10 bg-white">
@@ -6,7 +6,10 @@ const Footer = () => (
       <p>© 2025 - Pizzería Mamma Mía! - Todos los derechos reservados</p>
       <p className="mt-1">Proyecto Pizzeria — Hito 2</p>
     </div>
-  </footer>
+  </footer> 
+      
+
 );
+
 
 export default Footer;

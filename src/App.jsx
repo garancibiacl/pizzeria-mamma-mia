@@ -11,7 +11,7 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-white to-stone-100">
        <Navbar /> 
 
-     {/* Hito 3 — Para evaluar Home dinámico: <Home /> */}
+     <Home />
       {/* Hito 3 — Para evaluar Carrito: <Cart /> */}
       
 \   {/* <LoginPage/> */}
