@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { pizzaCart } from "../data/pizzas";
+ 
 
 const formatCurrency = (n) => Number(n).toLocaleString("es-CL");
 
@@ -36,9 +37,9 @@ export default function Cart() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button onClick={() => dec(item.id)} className="w-9 h-9 rounded-full border border-black/20 hover:bg-black/5">−</button>
+                  <button onClick={() => dec(item.id)} className="w-9 h-9 rounded-full border border-black/20 hover:bg-black/5" aria-label="Disminuir">−</button>
                   <span className="w-8 text-center font-semibold">{item.count}</span>
-                  <button onClick={() => inc(item.id)} className="w-9 h-9 rounded-full border border-black/20 hover:bg-black/5">+</button>
+                  <button onClick={() => inc(item.id)} className="w-9 h-9 rounded-full border border-black/20 hover:bg-black/5" aria-label="Aumentar">+</button>
                 </div>
 
                 <div className="w-24 text-right font-bold">
@@ -59,3 +60,4 @@ export default function Cart() {
     </section>
   );
 }
+

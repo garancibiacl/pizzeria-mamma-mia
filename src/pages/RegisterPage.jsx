@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Header";
+import { RiUserAddLine } from "react-icons/ri";
 
 
 
@@ -46,6 +47,7 @@ function RegisterPage() {
             type="button"
             className="w-full rounded-lg bg-black text-white py-2.5 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
           >
+            <RiUserAddLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Registrarse
           </button>
         </form>

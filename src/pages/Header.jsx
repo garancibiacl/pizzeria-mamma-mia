@@ -1,5 +1,6 @@
 import React from "react";
 import bgImg from "../assets/Header.jpg"; // 👈 importa la imagen local
+ 
 
 const Header = () => {
   return (
@@ -13,7 +14,8 @@ const Header = () => {
     >
       <h1 className="text-4xl font-extrabold">¡Pizzería Mamma Mía!</h1>
       <p className="mt-4 text-lg text-white/90">
-        La mejor pizza artesanal de la ciudad 🍕🔥 — masa madre, ingredientes frescos y mucho cariño.
+        La mejor pizza artesanal de la ciudad
+        — masa madre, ingredientes frescos y mucho cariño.
       </p>
     </header>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "./Header";
+import { RiLoginCircleLine } from "react-icons/ri";
 
 
 function LoginPage() {
@@ -114,6 +115,7 @@ function LoginPage() {
             type="submit"
             className="w-full rounded-lg bg-black text-white py-2.5 font-semibold hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
           >
+            <RiLoginCircleLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Entrar
           </button>
         </form>

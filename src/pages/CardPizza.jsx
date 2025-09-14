@@ -1,4 +1,5 @@
 import React from "react";
+import { RiEyeLine, RiShoppingCartLine } from "react-icons/ri";
 
 function CardPizza({ name, price, ingredients, img }) {
   const formatCurrency = (n) => n.toLocaleString("es-CL");
@@ -23,9 +24,13 @@ function CardPizza({ name, price, ingredients, img }) {
            {/* <ul className="mt-3 list-disc list-inside text-sm text-black/70">
           {ingredients && ingredients.map((ing) => <li key={ing}>{ing}</li>)}
         </ul> */}
-        <div className="mt-5 grid grid-cols-2 gap-3 mt-auto">
-          <button className="rounded-xl border px-3 py-2 hover:bg-black/5">Ver más</button>
+        <div className="mt-5 grid grid-cols-2 gap-3 ">
+          <button className="rounded-xl border px-3 py-2 hover:bg-black/5">
+            <RiEyeLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
+            Ver más
+          </button>
           <button className="rounded-xl bg-black text-white px-3 py-2 hover:opacity-90">
+            <RiShoppingCartLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Añadir
           </button>
         </div>
@@ -35,3 +40,4 @@ function CardPizza({ name, price, ingredients, img }) {
 }
 
 export default CardPizza;
+
