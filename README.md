@@ -40,6 +40,8 @@ Hitos:
 ## Desafío 5 — Detalles de UX/UI e íconos
 
 Hitos:
+
+- Integración router con `react-router-dom`.                    
 - Integración parcial de íconos con `react-icons/ri`:
   - `Navbar`: `RiHomeLine`, `RiUserLine`, `RiLogoutBoxRLine`, `RiLoginCircleLine`, `RiUserAddLine`, `RiShoppingCartLine`.
   - `CardPizza`: `RiEyeLine`, `RiShoppingCartLine`.
