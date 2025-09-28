@@ -1,10 +1,12 @@
 import React from "react";
 import { RiEyeLine, RiShoppingCartLine } from "react-icons/ri";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
 
 function CardPizza({ id, name, price, ingredients, img }) {
   const formatCurrency = (n) => n.toLocaleString("es-CL");
   const { addToCart } = useCart();
+  const { show, update } = useToast();
 
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-black/5 flex flex-col">
@@ -27,13 +29,23 @@ function CardPizza({ id, name, price, ingredients, img }) {
           {ingredients && ingredients.map((ing) => <li key={ing}>{ing}</li>)}
         </ul> */}
         <div className="mt-5 grid grid-cols-2 gap-3 ">
-          <button className="rounded-xl border px-3 py-2 hover:bg-black/5">
+          <button
+            className="rounded-xl border border-black px-3 py-2 text-black hover:bg-black hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 cursor-pointer"
+          >
             <RiEyeLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Ver más
           </button>
           <button
-            className="rounded-xl bg-black text-white px-3 py-2 hover:opacity-90"
-            onClick={() => addToCart({ id, name, price, img })}
+            className="rounded-xl border border-black bg-black text-white px-3 py-2 hover:bg-white hover:text-black transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 cursor-pointer"
+            onClick={() => {
+              const toastId = show(`Agregando \"${name}\"…`, { type: "info", duration: 800 });
+              // acción síncrona
+              addToCart({ id, name, price, img });
+              // dar feedback de éxito
+              setTimeout(() => {
+                update(toastId, { message: `\"${name}\" añadido al carrito`, type: "success" });
+              }, 300);
+            }}
           >
             <RiShoppingCartLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Añadir
