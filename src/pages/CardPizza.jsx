@@ -1,8 +1,10 @@
 import React from "react";
 import { RiEyeLine, RiShoppingCartLine } from "react-icons/ri";
+import { useCart } from "../context/CartContext";
 
-function CardPizza({ name, price, ingredients, img }) {
+function CardPizza({ id, name, price, ingredients, img }) {
   const formatCurrency = (n) => n.toLocaleString("es-CL");
+  const { addToCart } = useCart();
 
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-black/5 flex flex-col">
@@ -29,7 +31,10 @@ function CardPizza({ name, price, ingredients, img }) {
             <RiEyeLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Ver más
           </button>
-          <button className="rounded-xl bg-black text-white px-3 py-2 hover:opacity-90">
+          <button
+            className="rounded-xl bg-black text-white px-3 py-2 hover:opacity-90"
+            onClick={() => addToCart({ id, name, price, img })}
+          >
             <RiShoppingCartLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Añadir
           </button>

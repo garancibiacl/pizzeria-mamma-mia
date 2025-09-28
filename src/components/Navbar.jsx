@@ -9,12 +9,13 @@ import {
   RiUserAddLine,
   RiShoppingCartLine,
 } from "react-icons/ri";
+import { useCart } from "../context/CartContext";
  
 
 const formatCurrency = (n) => Number(n).toLocaleString("es-CL");
 
 function Navbar(){
-  const total = 25000; // tu valor actual
+  const { total } = useCart();
   const token = false; // como lo venías simulando
 
   const linkBase = "px-3 py-2 text-sm rounded-xl hover:bg-white/20";

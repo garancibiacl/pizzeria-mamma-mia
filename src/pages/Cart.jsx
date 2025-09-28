@@ -1,23 +1,10 @@
-import React, { useState } from "react";
-import { pizzaCart } from "../data/pizzas";
- 
+import React from "react";
+import { useCart } from "../context/CartContext";
 
 const formatCurrency = (n) => Number(n).toLocaleString("es-CL");
 
 export default function Cart() {
-  const [cart, setCart] = useState(pizzaCart);
-
-  const inc = (id) =>
-    setCart((c) => c.map((it) => (it.id === id ? { ...it, count: it.count + 1 } : it)));
-
-  const dec = (id) =>
-    setCart((c) =>
-      c
-        .map((it) => (it.id === id ? { ...it, count: it.count - 1 } : it))
-        .filter((it) => it.count > 0)
-    );
-
-  const total = cart.reduce((sum, it) => sum + it.price * it.count, 0);
+  const { cart, inc, dec, remove, clear, total } = useCart();
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-10">
@@ -45,6 +32,10 @@ export default function Cart() {
                 <div className="w-24 text-right font-bold">
                   $ {formatCurrency(item.price * item.count)}
                 </div>
+
+                <button onClick={() => remove(item.id)} className="ml-4 text-sm text-red-600 hover:underline">
+                  Quitar
+                </button>
               </li>
             ))}
           </ul>
@@ -55,7 +46,10 @@ export default function Cart() {
         <p className="text-lg">
           Total: <span className="font-extrabold">$ {formatCurrency(total)}</span>
         </p>
-        <button className="rounded-xl bg-black text-white px-5 py-2.5 hover:opacity-90">Pagar</button>
+        <div className="flex gap-2">
+          <button onClick={clear} className="rounded-xl border px-5 py-2.5 hover:bg-black/5">Vaciar</button>
+          <button className="rounded-xl bg-black text-white px-5 py-2.5 hover:opacity-90">Pagar</button>
+        </div>
       </div>
     </section>
   );

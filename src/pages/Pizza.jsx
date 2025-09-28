@@ -1,21 +1,16 @@
 // src/components/Pizza.jsx
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { usePizza } from "../context/PizzasContext";
 
 function Pizza() {
-  const [pizza, setPizza] = useState(null);
+  const params = useParams();
+  const id = params.id || "p001"; // fallback al id actual si la ruta aún no es dinámica
+  const { pizza, loading, error } = usePizza(id);
 
-
-  async function getPizza() {
-    const res = await fetch("http://localhost:5000/api/pizzas/p001");
-    const data = await res.json();
-    setPizza(data);
-  }
-
-  useEffect(() => {
-    getPizza();
-  }, []);
-
-  if (!pizza) return <p className="p-6 text-center">Cargando pizza…</p>;
+  if (loading) return <p className="p-6 text-center">Cargando pizza…</p>;
+  if (error) return <p className="p-6 text-center text-red-600">Error: {error}</p>;
+  if (!pizza) return null;
 
   const formatCurrency = (n) => Number(n).toLocaleString("es-CL");
 
@@ -54,3 +49,4 @@ function Pizza() {
 }
 
 export default Pizza;
+
