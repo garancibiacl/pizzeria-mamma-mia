@@ -10,13 +10,14 @@ import {
   RiShoppingCartLine,
 } from "react-icons/ri";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
  
 
 const formatCurrency = (n) => Number(n).toLocaleString("es-CL");
 
 function Navbar(){
   const { total } = useCart();
-  const token = false; // como lo venías simulando
+  const { token, logout } = useUser();
 
   const linkBase = "px-3 py-2 text-sm rounded-xl hover:bg-white/20";
   const active = ({ isActive }) => isActive ? "bg-white/20" : "bg-white/10";
@@ -42,7 +43,7 @@ function Navbar(){
                 <RiUserLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
                 Profile
               </NavLink>
-              <button className={`${linkBase} bg-white/10`}>
+              <button className={`${linkBase} bg-white/10`} onClick={logout}>
                 <RiLogoutBoxRLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
                 Logout
               </button>
@@ -72,4 +73,3 @@ function Navbar(){
 }
 
 export default Navbar;
-

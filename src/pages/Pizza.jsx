@@ -4,9 +4,12 @@ import { useParams } from "react-router-dom";
 import { usePizza } from "../context/PizzasContext";
 
 function Pizza() {
-  const params = useParams();
-  const id = params.id || "p001"; // fallback al id actual si la ruta aún no es dinámica
+  const { id } = useParams();
   const { pizza, loading, error } = usePizza(id);
+
+  if (!id) {
+    return <p className="p-6 text-center">Pizza no encontrada.</p>;
+  }
 
   if (loading) return <p className="p-6 text-center">Cargando pizza…</p>;
   if (error) return <p className="p-6 text-center text-red-600">Error: {error}</p>;
@@ -49,4 +52,3 @@ function Pizza() {
 }
 
 export default Pizza;
-

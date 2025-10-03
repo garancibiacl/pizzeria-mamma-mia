@@ -67,14 +67,28 @@ export function usePizzas() {
 // Hook de conveniencia para una pizza por id
 export function usePizza(id) {
   const { byId, getPizza } = usePizzas();
-  const [state, setState] = useState({ pizza: byId[id], loading: !byId[id], error: null });
+  const [state, setState] = useState({
+    pizza: id ? byId[id] : null,
+    loading: id ? !byId[id] : false,
+    error: null,
+  });
 
   useEffect(() => {
     let active = true;
+    if (!id) {
+      setState({ pizza: null, loading: false, error: null });
+      return () => {
+        active = false;
+      };
+    }
+
     if (byId[id]) {
       setState({ pizza: byId[id], loading: false, error: null });
-      return;
+      return () => {
+        active = false;
+      };
     }
+
     setState((s) => ({ ...s, loading: true, error: null }));
     getPizza(id)
       .then((p) => {

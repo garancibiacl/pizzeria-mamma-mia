@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { RiEyeLine, RiShoppingCartLine } from "react-icons/ri";
 import { useCart } from "../context/CartContext";
 import { useToast } from "../context/ToastContext";
@@ -29,12 +30,13 @@ function CardPizza({ id, name, price, ingredients, img }) {
           {ingredients && ingredients.map((ing) => <li key={ing}>{ing}</li>)}
         </ul> */}
         <div className="mt-5 grid grid-cols-2 gap-3 ">
-          <button
-            className="rounded-xl border border-black px-3 py-2 text-black hover:bg-black hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 cursor-pointer"
+          <Link
+            to={`/pizza/${id}`}
+            className="rounded-xl border border-black px-3 py-2 text-center text-black hover:bg-black hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 cursor-pointer"
           >
             <RiEyeLine className="inline mr-1 align-[-2px]" aria-hidden="true" />
             Ver más
-          </button>
+          </Link>
           <button
             className="rounded-xl border border-black bg-black text-white px-3 py-2 hover:bg-white hover:text-black transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 cursor-pointer"
             onClick={() => {
@@ -57,4 +59,3 @@ function CardPizza({ id, name, price, ingredients, img }) {
 }
 
 export default CardPizza;
-

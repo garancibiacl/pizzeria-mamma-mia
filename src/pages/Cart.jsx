@@ -1,10 +1,12 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 
 const formatCurrency = (n) => Number(n).toLocaleString("es-CL");
 
 export default function Cart() {
   const { cart, inc, dec, remove, clear, total } = useCart();
+  const { token } = useUser();
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-10">
@@ -48,10 +50,14 @@ export default function Cart() {
         </p>
         <div className="flex gap-2">
           <button onClick={clear} className="rounded-xl border px-5 py-2.5 hover:bg-black/5">Vaciar</button>
-          <button className="rounded-xl bg-black text-white px-5 py-2.5 hover:opacity-90">Pagar</button>
+          <button
+            className="rounded-xl bg-black text-white px-5 py-2.5 hover:opacity-90 disabled:bg-black/40 disabled:cursor-not-allowed"
+            disabled={!token}
+          >
+            Pagar
+          </button>
         </div>
       </div>
     </section>
   );
 }
-
