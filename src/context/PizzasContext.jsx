@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from "
 
 const PizzasContext = createContext(null);
 
-const API_BASE = "http://localhost:5000"; // centralizamos el backend
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000"; // centralizamos el backend
 
 export function PizzasProvider({ children }) {
   const [pizzas, setPizzas] = useState([]);

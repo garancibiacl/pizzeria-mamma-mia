@@ -9,7 +9,7 @@ export default function Cart() {
   const { token } = useUser();
   const [toast, setToast] = useState({ show: false, type: "success", text: "" });
   const [timerId, setTimerId] = useState(null);
-  const API = "http://localhost:5000";
+  const API = import.meta.env.VITE_API_BASE || "http://localhost:5000";
   const showToast = (type, text, ms = 2500) => {
     if (timerId) clearTimeout(timerId);
     setToast({ show: true, type, text });

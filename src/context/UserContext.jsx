@@ -33,7 +33,7 @@ export function UserProvider({ children }) {
     } catch {}
   }, [email]);
 
-  const API = "http://localhost:5000";
+  const API = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
   const login = useCallback(async ({ email, password }) => {
     const res = await fetch(`${API}/api/auth/login`, {
