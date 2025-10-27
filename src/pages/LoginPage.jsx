@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import { RiLoginCircleLine } from "react-icons/ri";
-
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   // Campos
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useUser();
+  const navigate = useNavigate();
 
   // Errores por input
   const [invalid, setInvalid] = useState({ email: false, password: false });
@@ -59,10 +62,17 @@ function LoginPage() {
       return;
     }
 
-    // Éxito
-    setInvalid({ email: false, password: false });
-    showToast("success", "Inicio de sesión exitoso ✅");
-    // aquí podrías llamar a tu API
+    // Llamada real al backend
+    (async () => {
+      try {
+        await login({ email, password });
+        setInvalid({ email: false, password: false });
+        showToast("success", "Inicio de sesión exitoso ✅");
+        setTimeout(() => navigate("/profile"), 600);
+      } catch (err) {
+        showToast("error", err.message || "Error al iniciar sesión");
+      }
+    })();
   }
 
   return (
@@ -81,7 +91,7 @@ function LoginPage() {
         </div>
       )}
 
-<Header />
+      <Header />
 
       <div className="max-w-sm mx-auto bg-white rounded-xl border border-black/10 p-6 mt-5">
         <h1 className="text-2xl font-semibold mb-6 text-center">Iniciar sesión</h1>
